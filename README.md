@@ -2,7 +2,7 @@
 
 A javascript presentation tool. Each slide is a file. Works with svg, jpg, gif, or pdf files.
 
-Uses <https://choo.io/> for the interactivity and DOM stuff.
+Uses [choo](https://choo.io/) for the interactivity and DOM stuff. Uses [keymaster](https://github.com/madrobby/keymaster) for the keyboard shortcuts.
 
 ## TODO
 
