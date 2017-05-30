@@ -1,0 +1,22 @@
+{
+  "name": "interactive-presentation",
+  "version": "0.0.1",
+  "description": "It's in the name",
+  "main": "index.js",
+  "repository": {},
+  "author": "Nathan Herald <me@nathanherald.com>",
+  "license": "MIT",
+  "dependencies": {
+    "choo": "^5.4.0",
+    "choo-log": "^6.1.1",
+    "keymaster": "^1.6.2",
+    "sheetify": "^6.0.1"
+  },
+  "scripts": {
+    "start": "bankai index.js -V -o -d -u false -a assets --js [ --transform envify ]"
+  },
+  "devDependencies": {
+    "bankai": "^7.1.1",
+    "envify": "^4.0.0"
+  }
+}
