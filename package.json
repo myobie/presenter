@@ -6,6 +6,9 @@
   "repository": {},
   "author": "Nathan Herald <me@nathanherald.com>",
   "license": "MIT",
+  "bin": {
+    "present": "bin/present.js"
+  },
   "dependencies": {
     "choo": "^5.4.0",
     "choo-log": "^6.1.1",
