@@ -1,5 +1,5 @@
 {
-  "name": "interactive-presentation",
+  "name": "presenter",
   "version": "0.0.1",
   "description": "It's in the name",
   "main": "index.js",
@@ -10,16 +10,16 @@
     "present": "bin/present.js"
   },
   "dependencies": {
-    "choo": "^5.4.0",
-    "choo-log": "^6.1.1",
+    "choo": "^6.10.3",
     "keymaster": "^1.6.2",
-    "sheetify": "^6.0.1"
+    "sheetify": "^7.3.0"
   },
   "scripts": {
     "start": "bankai index.js -V -o -d -u false -a assets --js [ --transform envify ]"
   },
   "devDependencies": {
-    "bankai": "^7.1.1",
-    "envify": "^4.0.0"
+    "choo-devtools": "^2.5.0",
+    "bankai": "^9.10.4",
+    "envify": "^4.1.0"
   }
 }
