@@ -1,5 +1,4 @@
 const choo = require('choo')
-const chooLog = require('choo-log')
 const html = require('choo/html')
 const css = require('sheetify')
 const key = require('keymaster')
@@ -49,7 +48,11 @@ const prefix = css`
 const id = 'the-stop-watch'
 
 const app = choo()
-app.use(chooLog())
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(require('choo-devtools')())
+}
+
 app.use(store)
 app.route('*', view)
 const tree = app.start()

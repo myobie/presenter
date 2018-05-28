@@ -12,14 +12,13 @@
   "dependencies": {
     "choo": "^6.11.0",
     "keymaster": "^1.6.2",
+    "mime": "^2.3.1",
     "sheetify": "^7.3.2"
   },
   "scripts": {
-    "start": "bankai index.js -V -o -d -u false -a assets --js [ --transform envify ]"
   },
   "devDependencies": {
-    "bankai": "^9.10.4",
-    "choo-devtools": "^2.5.1",
-    "envify": "^4.1.0"
+    "bankai": "^9.12.1",
+    "choo-devtools": "^2.5.1"
   }
 }

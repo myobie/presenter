@@ -1,5 +1,4 @@
 const choo = require('choo')
-const chooLog = require('choo-log')
 const html = require('choo/html')
 const css = require('sheetify')
 
@@ -22,9 +21,14 @@ const prefix = css`
 const id = 'the-clock'
 
 const app = choo()
-app.use(chooLog())
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(require('choo-devtools')())
+}
+
 app.use(store)
 app.route('*', view)
+
 const tree = app.start()
 
 function view (state, emit) {

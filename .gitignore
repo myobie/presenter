@@ -3,6 +3,3 @@ node_modules/*
 deps/*
 _build/*
 dist/*
-assets/slides.json
-assets/slides/*
-assets/fonts/*

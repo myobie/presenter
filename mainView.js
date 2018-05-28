@@ -7,10 +7,18 @@ const key = require('keymaster')
 function view (state, emit) {
   key.setScope('presentation')
 
-  const slide = state.slides[state.currentSlide - 1]
+  let slideChildren = []
+
+  if (state.slides.length > 0) {
+    const slide = state.slides[state.currentSlide - 1]
+
+    if (slide) {
+      slideChildren = [slideView(slide, emit)]
+    }
+  }
 
   return bodyView([
-    fullscreenView([slideView(slide, emit)], emit),
+    fullscreenView(slideChildren, emit),
     messageView(state, emit)
   ])
 }

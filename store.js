@@ -1,10 +1,10 @@
 const key = require('keymaster')
-const slides = require('./assets/slides.json')
-
 const ls = window.localStorage
+const fetch = window.fetch
 
 function store (state, bus) {
-  state.slides = slides
+  state.isReady = false
+  state.slides = []
   state.currentSlide = parseInt(ls.getItem('currentSlide') || 1, 10)
   state.isFollowing = false
   state.message = undefined
@@ -20,14 +20,57 @@ function store (state, bus) {
     emit('changeSlide', state.currentSlide + 1)
   })
 
+  bus.on('replaceSlides', newSlides => {
+    state.slides = newSlides
+    emit('changeSlide', state.currentSlide)
+    render()
+  })
+
+  bus.on('reloadSlides', () => {
+    emit('message', 'Reloading slides...')
+
+    fetch('/slides.json')
+      .then(res => {
+        if (res.status === 200) {
+          return Promise.resolve(res)
+        } else {
+          return Promise.reject(res)
+        }
+      })
+      .then(res => res.json())
+      .then(json => {
+        emit('message', 'Slided successfully reloaded')
+        emit('replaceSlides', json)
+      })
+      .catch(e => {
+        emit('message', 'Slided could not be reloaded 😓')
+        console.error('fetching slides.json failed')
+        console.error(e)
+      })
+  })
+
   bus.on('changeSlide', num => {
+    let newCurrentSlide
+
     if (num > 0 && num <= state.slides.length) {
-      state.currentSlide = num
-      if (!state.isFollowing) {
-        ls.setItem('currentSlide', state.currentSlide)
+      newCurrentSlide = num
+    } else if (num <= 0) {
+      newCurrentSlide = 1
+    } else {
+      if (state.slides.length > 0) {
+        newCurrentSlide = state.slides.length
+      } else {
+        newCurrentSlide = 1
       }
-      render()
     }
+
+    state.currentSlide = newCurrentSlide
+
+    if (!state.isFollowing) {
+      ls.setItem('currentSlide', state.currentSlide)
+    }
+
+    render()
   })
 
   bus.on('message', msg => {
@@ -62,6 +105,8 @@ function store (state, bus) {
     }
   })
 
+  key('r', e => { emit('reloadSlides') })
+
   key('⇧+f', 'presentation', e => { emit('toggleFollow') })
 
   key('left', e => {
@@ -69,6 +114,7 @@ function store (state, bus) {
       emit('previousSlide')
     }
   })
+
   key('right, space', e => {
     if (!state.isFollowing) {
       emit('nextSlide')
@@ -81,6 +127,8 @@ function store (state, bus) {
   setTimeout(() => {
     document.body.focus()
   }, 50)
+
+  emit('reloadSlides')
 
   function storageChanged (e) {
     if (e.key === 'currentSlide') {
