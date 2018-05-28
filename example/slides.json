@@ -8,5 +8,10 @@
     "path": "/slides/002.svg",
     "number": 2,
     "name": "slide-002"
+  },
+  {
+    "path": "/slides/003.svg",
+    "number": 3,
+    "name": "slide-003"
   }
 ]
