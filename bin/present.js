@@ -2,7 +2,6 @@
 
 const path = require('path')
 const fs = require('fs')
-const { inspect } = require('util')
 
 const cwd = process.cwd()
 debug(`cwd: ${cwd}`)
@@ -29,7 +28,7 @@ try {
 const slidesJSON = fs.readFileSync(slidesPath)
 try {
   const slides = JSON.parse(slidesJSON)
-  debug(inspect(slides))
+  debug(`${slides.length} slides`)
 } catch (e) {
   console.error("Couldn't understand the slides.json file")
   process.exit(1)
