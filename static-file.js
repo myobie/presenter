@@ -32,7 +32,7 @@ function createStaticFileHandler (baseDir) {
     function serve (aPath) {
       const mimeType = mime.getType(aPath)
 
-      const stream = fs.createReadStream(aPath)
+      const stream = fs.createReadStream(aPath, { bufferSize: 64 * 1024 })
       stream.pipe(res)
       stream.on('open', () => {
         if (mimeType) {
@@ -40,7 +40,6 @@ function createStaticFileHandler (baseDir) {
         } else {
           res.setHeader('Content-type', 'application/octet-stream')
         }
-        res.writeHead(200)
       })
       stream.on('error', e => {
         notFound()
